@@ -5,6 +5,8 @@
 #include "error/error.h"
 #include "token/token.h"
 #include "lexer/lexer.h"
+#include "node/node.h"
+#include "parser/parser.h"
 
 int main(int argc, char **argv) {
     printf("sml-dev # somemicrolanguage\nMIT License Copyright 2026 code-nuage\n\n");
@@ -21,6 +23,13 @@ int main(int argc, char **argv) {
 
             for (int i = 0; i < l.count; i++) {
                 token_print(l.tokens[i]);
+            }
+
+            sml_ast_parser p = parser_new();
+            parser_parse(&p, l.tokens);
+
+            for (int i = 0; i < p.count; i++) {
+                node_print(p.statements[i]);
             }
         }
 
